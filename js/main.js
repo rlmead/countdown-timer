@@ -7,7 +7,13 @@ date_input.value = '2020-12-11';
 // set the timer going with the button
 button.onclick = function () {
     ms_left = Date.parse(date_input.value) - Date.now();
-    convert_ms(ms_left);
+    let time_left = convert_ms(ms_left);
+    counter.textContent = time_left;
+    running_counter = setInterval(function () {
+        let time_left = convert_ms(ms_left);
+        counter.textContent = time_left;
+        ms_left -= 1000;
+     }, 1000)
 }
 
 // define zero-padding function to keep the counter segments consistent widths
@@ -39,9 +45,3 @@ function convert_ms(ms) {
     }
     return time_left;
 }
-
-// setInterval(function (ms_left) {
-//     let time_left = convert_ms(ms_left);
-//     counter.textContent = time_left;
-//     ms_left--;
-//  }, 1)
