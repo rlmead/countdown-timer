@@ -4,16 +4,25 @@ const button = document.querySelector('button');
 let date_input = document.querySelector('input[type="date"]');
 date_input.value = '2020-12-11';
 
+let running_counter;
+
 // set the timer going with the button
 button.onclick = function () {
+    if (button.textContent === 'start') {
     ms_left = Date.parse(date_input.value) - Date.now();
     let time_left = convert_ms(ms_left);
+    button.textContent = 'stop';
     counter.textContent = time_left;
     running_counter = setInterval(function () {
         let time_left = convert_ms(ms_left);
         counter.textContent = time_left;
         ms_left -= 1000;
-     }, 1000)
+     }, 1000);
+    } else {
+        clearInterval(running_counter);
+        button.textContent = 'start';
+        counter.textContent = '00:00:00:00';
+    }
 }
 
 // define zero-padding function to keep the counter segments consistent widths
