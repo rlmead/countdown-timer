@@ -1,0 +1,23 @@
+body {
+    text-align: center;
+    font-family: 'Roboto Mono', sans-serif;
+    font-size: 1.5em;
+    background-color: #84BCDA;
+}
+
+div {
+    background-color: #067BC2;
+    margin: auto;
+    display: inline-block;
+    padding: 20px;
+}
+
+button {
+    background-color: #ECC30B;
+}
+
+#counter {
+    background-color: #F37748;
+    font-family: 'Roboto Mono', sans-serif;
+    font-size: 2em;
+}
