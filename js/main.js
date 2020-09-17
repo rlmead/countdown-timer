@@ -8,17 +8,26 @@ let running_counter;
 
 // set the timer going with the button
 button.onclick = function () {
+    // start the timer when "start" button is pressed
     if (button.textContent === 'start') {
-    ms_left = Date.parse(date_input.value) - Date.now();
-    let time_left = convert_ms(ms_left);
-    button.textContent = 'stop';
-    counter.textContent = time_left;
-    running_counter = setInterval(function () {
-        let time_left = convert_ms(ms_left);
-        counter.textContent = time_left;
-        ms_left -= 1000;
-     }, 1000);
+        ms_left = Date.parse(date_input.value) - Date.now();
+        // make sure the chosen date is in the future
+        if (ms_left > 0) {
+            let time_left = convert_ms(ms_left);
+            button.textContent = 'stop';
+            counter.textContent = time_left;
+            running_counter = setInterval(function () {
+                let time_left = convert_ms(ms_left);
+                counter.textContent = time_left;
+                ms_left -= 1000;
+            }, 1000);
+        } else {
+            // alert users if chosen date is in the past
+            alert('please choose a date in the future!')
+            clearInterval(running_counter);
+        }
     } else {
+        // stop the timer when "stop" button is pressed
         clearInterval(running_counter);
         button.textContent = 'start';
         counter.textContent = '00:00:00:00';
@@ -46,7 +55,7 @@ let ms_conversion = {
 function convert_ms(ms) {
     let time_left = '';
     for (k in ms_conversion) {
-        time_left += zero_pad(Math.floor(ms / ms_conversion[k]).toString(),2);
+        time_left += zero_pad(Math.floor(ms / ms_conversion[k]).toString(), 2);
         if (k !== 's') {
             time_left += ':';
         }
