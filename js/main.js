@@ -17,13 +17,14 @@ button.onclick = function () {
             button.textContent = 'stop';
             counter.textContent = time_left;
             running_counter = setInterval(function () {
-                let time_left = convert_ms(ms_left);
-                counter.textContent = time_left;
                 ms_left -= 1000;
                 if (ms_left <= 0) {
                     clearInterval(running_counter);
                     button.textContent = 'start';
                     alert('blastoff!!!');
+                } else {
+                    let time_left = convert_ms(ms_left);
+                    counter.textContent = time_left;
                 }
             }, 1000);
         } else {
