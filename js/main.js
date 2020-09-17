@@ -6,18 +6,23 @@ date_input.value = '2020-12-11';
 
 let running_counter;
 
+let ms_left;
+
+function updateCounter() {
+    let time_left = convert_ms(ms_left);
+    counter.textContent = time_left;
+    ms_left -= 1000;
+}
+
 // set the timer going with the button
 button.onclick = function () {
     if (button.textContent === 'start') {
-    ms_left = Date.parse(date_input.value) - Date.now();
-    let time_left = convert_ms(ms_left);
-    button.textContent = 'stop';
-    counter.textContent = time_left;
-    running_counter = setInterval(function () {
+        ms_left = Date.parse(date_input.value) - Date.now();
         let time_left = convert_ms(ms_left);
+        button.textContent = 'stop';
         counter.textContent = time_left;
-        ms_left -= 1000;
-     }, 1000);
+        updateCounter();
+        running_counter = setInterval(updateCounter, 1000);
     } else {
         clearInterval(running_counter);
         button.textContent = 'start';
@@ -25,7 +30,7 @@ button.onclick = function () {
     }
 }
 
-// define zero-padding function to keep the counter segments consistent widths
+// define zero-padding function uo keep the counter segments consistent widths
 function zero_pad(input_string, desired_length) {
     let output_string = input_string;
     while (output_string.length < desired_length) {
@@ -46,7 +51,7 @@ let ms_conversion = {
 function convert_ms(ms) {
     let time_left = '';
     for (k in ms_conversion) {
-        time_left += zero_pad(Math.floor(ms / ms_conversion[k]).toString(),2);
+        time_left += zero_pad(Math.floor(ms / ms_conversion[k]).toString(), 2);
         if (k !== 's') {
             time_left += ':';
         }
