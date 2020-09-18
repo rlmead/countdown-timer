@@ -10,7 +10,8 @@ let running_counter;
 button.onclick = function () {
     // start the timer when "start" button is pressed
     if (button.textContent === 'start') {
-        ms_left = Date.parse(date_input.value) - Date.now();
+        timezone_offset_ms = (new Date()).getTimezoneOffset() * ms_conversion['m'];
+        ms_left = Date.parse(date_input.value) - Date.now() + timezone_offset_ms;
         // make sure the chosen date is in the future
         if (ms_left > 0) {
             let time_left = convert_ms(ms_left);
