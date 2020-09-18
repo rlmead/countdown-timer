@@ -12,6 +12,7 @@ button.onclick = function () {
     if (button.textContent === 'start') {
         timezone_offset_ms = (new Date()).getTimezoneOffset() * ms_conversion['m'];
         ms_left = Date.parse(date_input.value) - Date.now() + timezone_offset_ms;
+        // ms_left = 3000;
         // make sure the chosen date is in the future
         if (ms_left > 0) {
             let time_left = convert_ms(ms_left);
@@ -20,9 +21,10 @@ button.onclick = function () {
             running_counter = setInterval(function () {
                 ms_left -= 1000;
                 if (ms_left <= 0) {
-                    clearInterval(running_counter);
+                    counter.textContent = '00:00:00:00';
                     button.textContent = 'start';
                     alert('blastoff!!!');
+                    clearInterval(running_counter);
                 } else {
                     let time_left = convert_ms(ms_left);
                     counter.textContent = time_left;
@@ -31,7 +33,6 @@ button.onclick = function () {
         } else {
             // alert users if chosen date is in the past
             alert('please choose a date in the future!')
-            clearInterval(running_counter);
         }
     } else {
         // stop the timer when "stop" button is pressed
